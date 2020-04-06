@@ -4,13 +4,16 @@ import os
 import numpy as np
 import scipy.misc as ssc
 import imageio
-import kitti_util
+#import kitti_util
 import matplotlib.pyplot as plt
+from coordinate_conversion import Trans
+#from pypcd import pypcd
 
 
 
 def generate_dispariy_from_velo(pc_velo,labels, height, width):
-    pts_2d = calib.project_velo_to_image(pc_velo)
+    a =Trans()
+    pts_2d = a.project_lidar_to_image(pc_velo)
     fov_inds = (pts_2d[:, 0] < width - 1) & (pts_2d[:, 0] >= 0) & \
                (pts_2d[:, 1] < height - 1) & (pts_2d[:, 1] >= 0)
     fov_inds = fov_inds & (pc_velo[:, 0] > 2)
@@ -56,17 +59,20 @@ def generate_dispariy_from_velo(pc_velo,labels, height, width):
 if __name__ == '__main__':
     ## the path of code
 
-    lidar_dir = ""
-    image_dir = ""
-    gt_image_dir = ""
-
+    lidar_dir = "/mrtstorage/users/chli/real_data/"
+    image_dir = "/mrtstorage/users/chli/real_data/crop_image2/"
+    gt_image_dir = "/mrtstorage/users/chli/real_data/gt_image2/"
+    fn ="1571220343.044698000"
 
     # load point cloud
-    lidar = np.fromfile(lidar_dir)
-    gt_image = imageio.imread(gt_image_dir)
+    lidar = np.fromfile(lidar_dir+"1571220343.060393000.bin")
+    gt_image = imageio.imread(gt_image_dir+fn+".png")
 
-    gt_labels = gt_image[:,:,-1]
-    height, width = image.shape[:2]
+    #could = pypcd.PointCloud.from_path(lidar_dir+"1571220343.060393000.pcd")
+
+
+    gt_labels = gt_image
+    height, width = gt_image.shape
     disp, gt_disp = generate_dispariy_from_velo(lidar, gt_labels, height, width)
     print(disp.shape)
 

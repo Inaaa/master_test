@@ -1,6 +1,7 @@
 import numpy as np
 from autolab_core import RigidTransform
 class Trans():
+
     def trans_matrix(self,rotation_quaternion,trans, points=[1,1,1]):
         T_qua2rota = RigidTransform(rotation_quaternion, points)
         rot = T_qua2rota.rotation
@@ -22,6 +23,9 @@ class Trans():
 
     def lidarfl_to_camera(self):
         return np.dot(self.lidarfl_to_vehicle(), np.linalg.inv(self.camera_to_vehicle()))
+
+    def project_lidar_to_image(self,pc_velo):
+        return self.lidarfl_to_camera()*pc_velo
 
 a =Trans()
 print(a.lidarfl_to_camera())
