@@ -22,14 +22,14 @@ def generate_dispariy_from_velo(pc_velo,labels, height, width):
 
 
 
-    imgfov_pc_rect = calib.project_velo_to_rect(imgfov_pc_velo) # segmented pointcloud in image
+    #imgfov_pc_rect = calib.project_velo_to_rect(imgfov_pc_velo) # segmented pointcloud in image
     depth_map = np.zeros((height, width)) - 1
     gt_depth_map =np.zeros((height, width)) - 1
     imgfov_pts_2d = np.round(imgfov_pts_2d).astype(int) # segmented position in image.(pixel)
     road_point = []
     road_pos = []
 
-
+    '''
     for i in range(imgfov_pts_2d.shape[0]):
         depth = imgfov_pc_rect[i, 2]
         depth_map[int(imgfov_pts_2d[i, 1]), int(imgfov_pts_2d[i, 0])] = depth
@@ -55,6 +55,7 @@ def generate_dispariy_from_velo(pc_velo,labels, height, width):
     print(calib.f_u)
     return disp_map, gt_disp_map
 
+    '''
 
 if __name__ == '__main__':
     ## the path of code
@@ -65,7 +66,9 @@ if __name__ == '__main__':
     fn ="1571220343.044698000"
 
     # load point cloud
-    lidar = np.fromfile(lidar_dir+"1571220343.060393000.bin")
+    #lidar = np.fromfile(lidar_dir+"1_seg.txt")
+    lidar = np.loadtxt(lidar_dir+"1_seg.txt")
+
     gt_image = imageio.imread(gt_image_dir+fn+".png")
 
     #could = pypcd.PointCloud.from_path(lidar_dir+"1571220343.060393000.pcd")
@@ -73,15 +76,15 @@ if __name__ == '__main__':
 
     gt_labels = gt_image
     height, width = gt_image.shape
-    disp, gt_disp = generate_dispariy_from_velo(lidar, gt_labels, height, width)
-    print(disp.shape)
+    generate_dispariy_from_velo(lidar, gt_labels, height, width)
+    #print(disp.shape)
 
     #im2 = plt.imshow(disp, cmap=plt.cm.viridis, alpha=.9, interpolation='bilinear')
 
     #plt.show()
-    im2 = plt.imshow(gt_disp, cmap=plt.cm.viridis, alpha=.9, interpolation='bilinear')
+    #im2 = plt.imshow(gt_disp, cmap=plt.cm.viridis, alpha=.9, interpolation='bilinear')
     #plt.show()
 
     #np.save(disparity_dir + '/' + predix, gt_disp)
     #np.save(gt_disparity_dir + '/' + predix, gt_disp)
-    print('Finish Disparity {}'.format(predix))
+    #print('Finish Disparity {}'.format(predix))
