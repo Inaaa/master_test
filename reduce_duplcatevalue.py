@@ -6,8 +6,8 @@
 
 res_list = []
 # f = open('F:/master/master-work/code_of_graduate/LTP_data/raw_plain.txt','r')
-f = open('/home/cc/Desktop/points.txt', 'r')
-f2 = open("/home/cc/Desktop/points2.txt",'w')
+f = open('./data/points_r.txt', 'r')
+f2 = open("./data/points_r_2.txt",'w')
 res_dup = []
 index = 0
 #file_dul = open('F:/master/master-work/code_of_graduate/chu_li_shuju/ldc-weibo-train-dul.txt', 'w')

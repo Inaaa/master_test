@@ -8,11 +8,6 @@ class Trans():
         self.R0 = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
         self.R0 = np.reshape(self.R0, [3, 3])
 
-
-
-
-
-
     def trans_matrix(self,rotation_quaternion,trans, points=[1,1,1]):
         T_qua2rota = RigidTransform(rotation_quaternion, points)
         rot = T_qua2rota.rotation
@@ -26,6 +21,12 @@ class Trans():
 
         lidarfl_to_vehicle,lidarfl_to_vehicle2 = self.trans_matrix(rotation_quaternion, trans)
         return lidarfl_to_vehicle,lidarfl_to_vehicle2
+
+    def map_to_vehicle(self):
+        rotation_quaternion = [0.533606787485, -0.0 , -0.0, 0.845732697931]
+        trans = [[12252.3399045],[-58041.396854],[-0.0]]
+        map_to_vehicle, map_to_vehicle2 = self.trans_matrix(rotation_quaternion, trans)
+        return map_to_vehicle, map_to_vehicle2
 
     def camera_to_vehicle(self):
         rotation_quaternion =[0.511507, -0.475892, 0.481761, -0.528955]  #front_color_rect
@@ -61,6 +62,10 @@ class Trans():
         pts_3d_velo = self.cart2hom(pc_velo)
         matrix ,_= self.lidarfl_to_vehicle()
         return np.dot(pts_3d_velo,np.transpose(matrix))
+    def project_map_to_vehicle(self, points):
+        points = self.cart2hom(points)
+        matrix, _ = self.map_to_vehicle()
+        return np.dot(points, np.transpose(matrix))
 
     def project_lidar_to_image(self,pc_velo):
         pts_3d_ref = self.project_lidar_to_camera(pc_velo)
@@ -105,6 +110,9 @@ class Trans():
         pts_2d[:, 1] /= pts_2d[:, 2]
         result = pts_2d[:, 0:2]
         return result
+
+
+
 
 
 
