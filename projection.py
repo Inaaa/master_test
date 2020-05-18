@@ -1,17 +1,13 @@
-import argparse
-import os
+
 
 import numpy as np
-import scipy.misc as ssc
 import imageio
-#import kitti_util
-import matplotlib.pyplot as plt
 from coordinate_conversion import Trans
-#from pypcd import pypcd
 
 
 
-def generate_dispariy_from_velo(pc_velo,labels, height, width):
+
+def generate_disparity_from_velo(pc_velo,labels, height, width):
     a =Trans()
     pts_2d = a.project_lidar_to_image(pc_velo)
     pc_velo2 = a.project_lidar_to_vehicle(pc_velo)
@@ -88,7 +84,7 @@ if __name__ == '__main__':
 
     gt_labels = gt_image
     height, width = gt_image.shape
-    generate_dispariy_from_velo(lidar, gt_labels, height, width)
+    generate_disparity_from_velo(lidar, gt_labels, height, width)
     #print(disp.shape)
 
     #im2 = plt.imshow(disp, cmap=plt.cm.viridis, alpha=.9, interpolation='bilinear')

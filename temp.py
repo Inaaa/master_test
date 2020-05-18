@@ -1,3 +1,42 @@
+
+import numpy as np
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -38,3 +77,4 @@ ax2.set_ylim(Y.min() - 1, Y.max() + 1)
 ax2.set_ylabel('指数')
 ax2.set_title('三次样条插值')
 ax2.legend()
+'''
