@@ -3,7 +3,7 @@ from autolab_core import RigidTransform
 class Trans():
     def __init__(self):
 
-        self.P = [1700.0, 0.0, 2047.0, -0.0, 0.0, 1700.0, 1015.0, -0.0, 0.0, 0.0, 1.0, 0.0 ]
+        self.P = [1700.00, 0.0, 2047.00, -0.0, 0.0, 1700.00, 1015.00, -0.0, 0.0, 0.0, 1.0, 0.0 ]
         self.P = np.reshape(self.P, [3, 4])
         self.R0 = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
         self.R0 = np.reshape(self.R0, [3, 3])
