@@ -23,6 +23,11 @@ class Trans():
         return lidarfl_to_vehicle,lidarfl_to_vehicle2
 
     def map_to_vehicle(self):
+        '''
+        here only use the one time punkt to define the rostion_quaternion and trans,
+        but in really project , we should subscribe the massage the rostopic.
+        :return:
+        '''
         rotation_quaternion = [0.533606787485, -0.0 , -0.0, 0.845732697931]
         trans = [[12252.3399045],[-58041.396854],[-0.0]]
         map_to_vehicle, map_to_vehicle2 = self.trans_matrix(rotation_quaternion, trans)
